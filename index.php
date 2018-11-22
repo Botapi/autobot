@@ -11,10 +11,9 @@ use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 
 // Token
-$channel_token =
-'2MCOyCeaBipmw3ZzJG8BrsiO4KzCoaoPddMgbZtEu5HHVeIaWU+PDKcCZRJEY76zqxv56d15kZeMoU/vQ0zuzPFlbhFM7AhRMZw
-LrSkLdciLCuKUgV6aFrvAAuuG1mMWe7DCzfEW9FfHQhJR4F/m0AdB04t89/1O/w1cDnyilFU=';
-$channel_secret = 'd4afd7da941ac195c155fe67dcb5a338';
+$channel_token ='1ee/xGxyDnwMQI68hvLvkQSV7qMpSk/EjyabBE9yK3VxT4GMQ5h2dyXAIEv5iorHs1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC
+9zzOUyYjStQyCNAKgxk9pWrBVlgfkmpV+qDXJpFetG02YgdB04t89/1O/w1cDnyilFU=';
+$channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
 
 
 // Get message from Line API
