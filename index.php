@@ -1,8 +1,6 @@
 <?php
 
-
 require_once('./vendor/autoload.php');
-
 
 // Namespace
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -11,8 +9,7 @@ use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 
 // Token
-$channel_token ='1ee/xGxyDnwMQI68hvLvkQSV7qMpSk/EjyabBE9yK3VxT4GMQ5h2dyXAIEv5iorHs1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC
-9zzOUyYjStQyCNAKgxk9pWrBVlgfkmpV+qDXJpFetG02YgdB04t89/1O/w1cDnyilFU=';
+$channel_token ='1ee/xGxyDnwMQI68hvLvkQSV7qMpSk/EjyabBE9yK3VxT4GMQ5h2dyXAIEv5iorHs1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zzOUyYjStQyCNAKgxk9pWrBVlgfkmpV+qDXJpFetG02YgdB04t89/1O/w1cDnyilFU=';
 $channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
 
 
