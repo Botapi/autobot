@@ -42,9 +42,10 @@ if (!is_null($events['events'])) {
                 case 'ดีค่ะ' :
                         $respMessage = 'สวัสดีค่ะ';
                     break;
-                case 'f':
-                case 'F':
-                        $respMessage = 'Love you lady.';
+                case 'คณะวิทยาศาสตร์เปิดทำการวันไหนบ้าง':
+                case 'คณะเปิดทำการวันไหนบ้าง':
+                case 'วันไหนคณะเปิดทำการบ้าง':
+                        $respMessage = 'เปิดทุกวันยกเว้นวันหยุดราชการค่ะ';
                     break;
                 default:
                     $respMessage = 'What is your sex? M or F';
