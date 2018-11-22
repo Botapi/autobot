@@ -43,6 +43,7 @@ if (!is_null($events['events'])) {
                         $respMessage = 'สวัสดีค่ะ';
                     break;
                 case 'f':
+                case 'F':
                         $respMessage = 'Love you lady.';
                     break;
                 default:
