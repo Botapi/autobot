@@ -24,10 +24,31 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             $ask = $event['message']['text'];
 
-            if($message == "สวัสดี"){
-                $arrayPostData['messages'][0]['type'] = "text";
-                $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
-                replyMsg($arrayHeader,$arrayPostData);
+            switch(strtolower($ask)) {
+                case 'สวัสดี' :
+                case 'สวัสคับ' :
+                case 'สวัสดีครับ' :
+                case 'สวัสดีค่ะ' :
+                case 'สวัสดีคะ' :
+                case 'หวัดดี' :
+                case 'หวัดดีคับ' :
+                case 'หวัดดีครับ' :
+                case 'หวัดดีค่ะ' :
+                case 'หวัดดีคะ' :
+                case 'ดี' :
+                case 'ดีครับ' :
+                case 'ดีคับ' :
+                case 'ดีคะ' :
+                case 'ดีค่ะ' :
+                        $respMessage = 'สวัสดีค่ะ';
+                    break;
+                case 'f':
+                case 'F':
+                        $respMessage = 'Love you lady.';
+                    break;
+                default:
+                    $respMessage = 'What is your sex? M or F';
+                    break;
             }
             $httpClient = new CurlHTTPClient($channel_token);
             $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
