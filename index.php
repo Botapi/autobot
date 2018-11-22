@@ -47,9 +47,9 @@ if (!is_null($events['events'])) {
                 case 'วันไหนคณะเปิดทำการบ้าง':
                         $respMessage = 'เปิดทุกวันยกเว้นวันหยุดราชการค่ะ';
                     break;
-                default:
-                    $respMessage = 'What is your sex? M or F';
-                    break;
+                //default:
+                    //$respMessage = 'What is your sex? M or F';
+                    //break;
             }
             $httpClient = new CurlHTTPClient($channel_token);
             $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
