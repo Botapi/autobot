@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
                     break;
                    
                     // Location
-            $title = 'ตำแหน่งที่ตั้ง';
+            $respMessage = 'ตำแหน่งที่ตั้ง';
             $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
             $latitude = '7.9097011';
             $longitude = '98.3847784';
@@ -69,7 +69,7 @@ if (!is_null($events['events'])) {
             $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
             
             
-            $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
+            $textMessageBuilder = new LocationMessageBuilder($respMessage, $address, $latitude, $longitude);
             $response = $bot->replyMessage($replyToken, $textMessageBuilder);
             break;
                     
