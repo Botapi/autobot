@@ -25,10 +25,10 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             
             // Location
-            $title = 'I am here';
-            $address = 'Fitness 7 Ratchada';
-            $latitude = '13.7743425';
-            $longitude = '100.5680782';
+            $title = 'ตำแหน่งที่ตั้ง';
+            $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
+            $latitude = '7.9097011';
+            $longitude = '98.3847784';
             
             
             $httpClient = new CurlHTTPClient($channel_token);
@@ -37,11 +37,9 @@ if (!is_null($events['events'])) {
             
             $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
             $response = $bot->replyMessage($replyToken, $textMessageBuilder);
-            
-            
-
+          
+          
             $ask = $event['message']['text'];
-
             switch(strtolower($ask)) {
                 case 'สวัสดี' :
                 case 'สวัสคับ' :
