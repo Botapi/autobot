@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
 
             // Location
-            $title = 'ตำแหน่งที่ตั้ง';
+            /*$title = 'ตำแหน่งที่ตั้ง';
             $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
             $latitude = '7.9097011';
             $longitude = '98.3847784';
@@ -35,13 +35,13 @@ if (!is_null($events['events'])) {
              
              
              $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
-             $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+             $response = $bot->replyMessage($replyToken, $textMessageBuilder);*/
 
              
             $ask = $event['message']['text'];
             switch(strtolower($ask)) {
                 case 'สวัสดี' :
-                case 'สวัสคับ' :
+                case 'สวัสดีคับ' :
                 case 'สวัสดีครับ' :
                 case 'สวัสดีค่ะ' :
                 case 'สวัสดีคะ' :
