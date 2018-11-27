@@ -6,6 +6,7 @@ require_once('./vendor/autoload.php');
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
 
 // Token
 $channel_token =
@@ -22,6 +23,23 @@ if (!is_null($events['events'])) {
 
             // Get replyToken
             $replyToken = $event['replyToken'];
+            
+            // Location
+            $title = 'I am here';
+            $address = 'Fitness 7 Ratchada';
+            $latitude = '13.7743425';
+            $longitude = '100.5680782';
+            
+            
+            $httpClient = new CurlHTTPClient($channel_token);
+            $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+            
+            
+            $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
+            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+            
+            
+
             $ask = $event['message']['text'];
 
             switch(strtolower($ask)) {
