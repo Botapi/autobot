@@ -69,9 +69,9 @@ if (!is_null($events['events'])) {
                 
                 $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
-                default:
-                    $respMessage = 'ขอโทษนะค่ะคำถามนี้ไม่เกี่ยวข้องกับคณะวิทยาศาสตร์และเทคโนโลยีค่ะ';
-                    break;
+                //default:
+                    //$respMessage = 'ขอโทษนะค่ะคำถามนี้ไม่เกี่ยวข้องกับคณะวิทยาศาสตร์และเทคโนโลยีค่ะ';
+                   // break;
                    
             }
             $httpClient = new CurlHTTPClient($channel_token);
