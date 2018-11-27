@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
             break;
                     
                 default:
-                    $respMessage = 'What is your sex? M or F';
+                    $respMessage = 'ขอโทษนะค่ะคำถามนี้ไม่เกี่ยวข้องกับคณะวิทยาศาสตร์และเทคโนโลยีค่ะ';
                     break;
             }
             $httpClient = new CurlHTTPClient($channel_token);
