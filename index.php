@@ -62,9 +62,7 @@ if (!is_null($events['events'])) {
                     break;
                    
                     // Location
-                //$title = 'ตำแหน่งที่ตั้ง';
-                $title = $event['message']['text'];
-                case 'ตำแหน่งที่ตั้ง':
+                $title = 'ตำแหน่งที่ตั้ง';
                 $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
                 $latitude = '7.9097011';
                 $longitude = '98.3847784';
