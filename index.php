@@ -23,22 +23,6 @@ if (!is_null($events['events'])) {
 
             // Get replyToken
             $replyToken = $event['replyToken'];
-            
-            // Location
-            $title = 'ตำแหน่งที่ตั้ง';
-            $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
-            $latitude = '7.9097011';
-            $longitude = '98.3847784';
-            
-            
-            $httpClient = new CurlHTTPClient($channel_token);
-            $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
-            
-            
-            $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
-            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
-          
-          
             $ask = $event['message']['text'];
             switch(strtolower($ask)) {
                 case 'สวัสดี' :
@@ -73,9 +57,23 @@ if (!is_null($events['events'])) {
                 case 'ติดต่อ':
                     $respMessage = 'เลขที่ 21 หมู่ที่ 6 ตำบลรัษฎา อำเภอเมือง จังหวัดภูเก็ต 83000 หมายเลขโทรศัพท์ 076-240-474 ต่อ 4000, 076-211-959 ต่อ 4000 หมายเลขโทรศัพท์ / โทรสาร 076-218-80';
                     break;
+                   
+                    // Location
+            $title = 'ตำแหน่งที่ตั้ง';
+            $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
+            $latitude = '7.9097011';
+            $longitude = '98.3847784';
+            
+            
+            $httpClient = new CurlHTTPClient($channel_token);
+            $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+            
+            
+            $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
+            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
                     
                 default:
-                    $respMessage = 'ขอโทษค่ะไม่มีคำตอบสำหรับคำถามค่ะ';
+                    $respMessage = 'What is your sex? M or F';
                     break;
             }
             $httpClient = new CurlHTTPClient($channel_token);
