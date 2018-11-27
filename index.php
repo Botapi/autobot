@@ -74,9 +74,9 @@ if (!is_null($events['events'])) {
                     $respMessage = 'เลขที่ 21 หมู่ที่ 6 ตำบลรัษฎา อำเภอเมือง จังหวัดภูเก็ต 83000 หมายเลขโทรศัพท์ 076-240-474 ต่อ 4000, 076-211-959 ต่อ 4000 หมายเลขโทรศัพท์ / โทรสาร 076-218-80';
                     break;
                     
-                //default:
-                    //$respMessage = 'What is your sex? M or F';
-                    //break;
+                default:
+                    $respMessage = 'ขอโทษค่ะไม่มีคำตอบสำหรับคำถามค่ะ';
+                    break;
             }
             $httpClient = new CurlHTTPClient($channel_token);
             $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
