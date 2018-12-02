@@ -7,6 +7,22 @@ use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use \LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
+use Kreait\Firebase\Configuration;
+use Kreait\Firebase\Firebase;
+use Kreait\Firebase\Query;
+
+/** Functions required for various tasks the API needs to perform */
+/**
+ * Configure connection to firebase
+ * @return Firebase
+ */
+function configureFireBase()
+{
+    $config = new Configuration();
+    $config->setAuthConfigFile(__DIR__ . '/project-918731043177.json');
+    $firebase = new Firebase('https://line-botapi.firebaseio.com/', $config);
+    return $firebase;
+}
 
 // Token
 $channel_token =
