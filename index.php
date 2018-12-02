@@ -7,9 +7,6 @@ use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use \LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\ServiceAccount;
-
 
 // Token
 $channel_token ='5zjv4hi29sLGonOEAlDYca3E6vCKAH08EoN6EGMFxBuVD+6n8b5ZDouqSneSz9SZs1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zytLsWXQllSvwd0NRMpglE3bt9L8sSYpDXdvIkyCptCNQdB04t89/1O/w1cDnyilFU=';
@@ -19,31 +16,7 @@ $channel_secret = 'e78b0a586ff35917bde68d9f3118b6c6';
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
-$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/google-service-account.json');
-$firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    // The following line is optional if the project id in your credentials file
-    // is identical to the subdomain of your Firebase project. If you need it,
-    // make sure to replace the URL with the URL of your project.
-    ->withDatabaseUri('https://linebot-api-d008f.firebaseio.com')
-    ->create();
-
-$database = $firebase->getDatabase();
-
-$newPost = $database
-    ->getReference('blog/posts')
-    ->push([
-        'title' => 'พับจี',
-        'body' => 'This should'
-    ]);
-$newPost->getKey(); // => -KVr5eu8gcTv7_AHb-3-
-$newPost->getUri(); // => https://my-project.firebaseio.com/blog/posts/-KVr5eu8gcTv7_AHb-3-
-
-$newPost->getChild('title')->set('Changed post title');
-$newPost->getValue(); // Fetches the data from the realtime database
-$newPost->remove();
-
-/*if (!is_null($events['events'])) {
+if (!is_null($events['events'])) {
         // Loop through each event
         foreach ($events['events'] as $event) {
 
@@ -64,7 +37,7 @@ $newPost->remove();
              $response = $bot->replyMessage($replyToken, $textMessageBuilder);*/
 
              
-            /*$ask = $event['message']['text'];
+            $ask = $event['message']['text'];
             switch(strtolower($ask)) {
                 case 'สวัสดี' :
                 case 'สวัสดีคับ' :
