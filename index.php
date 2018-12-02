@@ -11,6 +11,16 @@ use Kreait\Firebase\Configuration;
 use Kreait\Firebase\Firebase;
 use Kreait\Firebase\Query;
 
+
+// Token
+$channel_token =
+'ga8pQMcoauY4Va26gopt2nGpF4cS3MGhtg85GTNrQfVytm9UZy8mji1/CPiNVv94s1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zz/Qb7FJTp7GbaA/xzbbD6pqz+Cdj84BTTEQ3JqJIP2kgdB04t89/1O/w1cDnyilFU=';
+$channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
+
+// Get message from Line API
+$content = file_get_contents('php://input');
+$events = json_decode($content, true);
+
 /** Functions required for various tasks the API needs to perform */
 /**
  * Configure connection to firebase
@@ -23,15 +33,6 @@ function configureFireBase()
     $firebase = new Firebase('https://line-botapi.firebaseio.com/', $config);
     return $firebase;
 }
-
-// Token
-$channel_token =
-'ga8pQMcoauY4Va26gopt2nGpF4cS3MGhtg85GTNrQfVytm9UZy8mji1/CPiNVv94s1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zz/Qb7FJTp7GbaA/xzbbD6pqz+Cdj84BTTEQ3JqJIP2kgdB04t89/1O/w1cDnyilFU=';
-$channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
-
-// Get message from Line API
-$content = file_get_contents('php://input');
-$events = json_decode($content, true);
 
 if (!is_null($events['events'])) {
         // Loop through each event
