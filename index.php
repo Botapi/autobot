@@ -1,167 +1,102 @@
 <?php
-$access_token = 'ga8pQMcoauY4Va26gopt2nGpF4cS3MGhtg85GTNrQfVytm9UZy8mji1/CPiNVv94s1aNd0p7
-bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zz/Qb7FJTp7GbaA/xzbbD6pqz+Cdj84BTTEQ3JqJIP2kgdB04t89/1O/w1cDnyilFU=';
-// Get POST body content
+
+require_once('./vendor/autoload.php');
+
+// Namespace
+use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use \LINE\LINEBot;
+use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
+use Kreait\Firebase\Configuration;
+use Kreait\Firebase\Firebase;
+use Kreait\Firebase\Query;
+
+/** Functions required for various tasks the API needs to perform */
+/**
+ * Configure connection to firebase
+ * @return Firebase
+ */
+function configureFireBase()
+{
+    $config = new Configuration();
+    $config->setAuthConfigFile(__DIR__ . '/project-918731043177.json');
+    $firebase = new Firebase('https://upwork-test.firebaseio.com/', $config);
+    return $firebase;
+}
+
+// Token
+$channel_token =
+'ga8pQMcoauY4Va26gopt2nGpF4cS3MGhtg85GTNrQfVytm9UZy8mji1/CPiNVv94s1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zz/Qb7FJTp7GbaA/xzbbD6pqz+Cdj84BTTEQ3JqJIP2kgdB04t89/1O/w1cDnyilFU=';
+$channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
+
+// Get message from Line API
 $content = file_get_contents('php://input');
-// Parse JSON
 $events = json_decode($content, true);
-// Validate parsed JSON data
+
 if (!is_null($events['events'])) {
-    // Loop through each event
-    foreach ($events['events'] as $event) {
-        // Reply only when message sent is in 'text' format
-        if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-            // Get text sent
-            $text = $event['message']['text'];
+        // Loop through each event
+        foreach ($events['events'] as $event) {
+
             // Get replyToken
             $replyToken = $event['replyToken'];
-            
-             if ($event['message']['text'] == 'hi' || $event['message']['text'] == 'hello'){
-                $messages = [
-                    'type' => 'sticker',
-                    'packageId' => 1,
-                    'stickerId' => 4,
-                ];
-                $url = 'https://api.line.me/v2/bot/message/reply';
-                $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages],
-                ];
-                $post = json_encode($data);
-                $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                $result = curl_exec($ch);
-                curl_close($ch);
-                echo $result . "\r\n";
-            }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
-                
-                // Constants firebase
-                 $length = 15;
-                $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-                // Constants
-                   $FIREBASE = "https://linebot-api-d008f.firebaseio.com";
-                $NODE_PUT = $randomString.".json";
-                $randomString2 = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11);
-                // Matching nodes updated
-                $data = array(
-                    "url" => $randomString2
-                );
-                    // JSON encoded
-                $json = json_encode($data);
-                // Initialize cURL
-                $curl = curl_init();
-            //Create
-                 curl_setopt( $curl, CURLOPT_URL, $FIREBASE . $NODE_PUT );
-                 curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "PUT" );
-                curl_setopt( $curl, CURLOPT_POSTFIELDS, $json);
-               // Get return value
-                curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-                // Make request
-                // Close connection
-                $response = curl_exec( $curl );
-                curl_close( $curl );
-                // Show result
-                echo $response . "\n";
-            }else if(strpos($event['message']['text'], 'tp-') !== false){
-                    $getDataTp = $event['message']['text'];
-                    $codeTransport = substr($getDataTp, 3, 10);
-                    $statusId = substr($getDataTp, 14, 1);
-            
-                 $post = [
-                     'codeTransport' => $codeTransport,
-                     'statusId'   => $statusId,
-                 ];
-                $ch = curl_init('https://linebot-api-d008f.firebaseio.com');
-                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                 curl_setopt($ch,CURLOPT_POST, 1);
-                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                // execute!
-                 $response = curl_exec($ch);
-              $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                $err = curl_error($ch);
-                 
-               
-                     curl_close($ch);
-                 // Build message to reply back
-                 $messages = [
-                     'type' => 'text',
-                     'text' => 'success-'.$err.'http'.$http_status
-                 ];
-                    
-                 // Make a POST Request to Messaging API to reply to sender
-                 $url = 'https://api.line.me/v2/bot/message/reply';
-                 $data = [
-                     'replyToken' => $replyToken,
-                     'messages' => [$messages],
-                 ];
-                 $post = json_encode($data);
-                 $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-                 $ch = curl_init($url);
-                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                 $result = curl_exec($ch);
-                 curl_close($ch);
-                 echo $result . "\r\n";
-             }
-            // Build message to reply back
-            $messages = [
-                'type' => 'text',
-                'text' => $text
-            ];
-            // Make a POST Request to Messaging API to reply to sender
-            $url = 'https://api.line.me/v2/bot/message/reply';
-            $data = [
-                'replyToken' => $replyToken,
-                'messages' => [$messages],
-            ];
-            $post = json_encode($data);
-            $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            echo $result . "\r\n";
-        }elseif ($event['type'] == 'message' && $event['message']['type'] == 'sticker'){
-            // Get sticker sent
-            $packageId = $event['message']['packageId'];
-            $stickerId = $event['message']['stickerId'];
-            // Get replyToken
-            $replyToken = $event['replyToken'];
-            // Build message to reply back
-            $messages = [
-                'type' => 'sticker',
-                'packageId' => $packageId,
-                'stickerId' => $stickerId,
-            ];
-            // Make a POST Request to Messaging API to reply to sender
-            $url = 'https://api.line.me/v2/bot/message/reply';
-            $data = [
-                'replyToken' => $replyToken,
-                'messages' => [$messages],
-            ];
-            $post = json_encode($data);
-            $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            echo $result . "\r\n";
-        }
+
+            // Location
+            /*$title = 'ตำแหน่งที่ตั้ง';
+            $address = 'คณะวิทยาศาตร์และเทคโนโลยี';
+            $latitude = '7.9097011';
+            $longitude = '98.3847784';
+           
+             $httpClient = new CurlHTTPClient($channel_token);
+             $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+             
+             
+             $textMessageBuilder = new LocationMessageBuilder($title, $address, $latitude, $longitude);
+             $response = $bot->replyMessage($replyToken, $textMessageBuilder);*/
+
+             
+            $ask = $event['message']['text'];
+            switch(strtolower($ask)) {
+                case 'สวัสดี' :
+                case 'สวัสดีคับ' :
+                case 'สวัสดีครับ' :
+                case 'สวัสดีค่ะ' :
+                case 'สวัสดีคะ' :
+                case 'หวัดดี' :
+                case 'หวัดดีคับ' :
+                case 'หวัดดีครับ' :
+                case 'หวัดดีค่ะ' :
+                case 'หวัดดีคะ' :
+                case 'ดี' :
+                case 'ดีครับ' :
+                case 'ดีคับ' :
+                case 'ดีคะ' :
+                case 'ดีค่ะ' :
+                        $respMessage = 'สวัสดีค่ะ';
+                    break;
+                case 'คณะวิทยาศาสตร์เปิดทำการวันไหนบ้าง':
+                        $respMessage = 'เปิดทุกวันยกเว้นวันหยุดราชการค่ะ';
+                    break;
+                case 'ขอทราบกำหนดการกิจกรรมของคณะเดือนพฤษจิกายน':
+                        $respMessage = 'ยังไม่มีกำหนดการกิจกรรมสำหรับเดือนพฤษจิกายนค่ะ';
+                    break;
+                case 'ขอทราบกำหนดการกิจกรรมของคณะเดือนพฤษจิกายน':
+                    $respMessage = 'ยังไม่มีกำหนดการกิจกรรมสำหรับเดือนพฤษจิกายนค่ะ';
+                    break;
+                case 'คำถามยอดฮิต':
+                    $respMessage = 'ตอนนี้ยังไม่มีข้อมูลสำหรับคำถามยอดฮิตน่ะค่ะ';
+                    break;
+                case 'ติดต่อ':
+                    $respMessage = 'เลขที่ 21 หมู่ที่ 6 ตำบลรัษฎา อำเภอเมือง จังหวัดภูเก็ต 83000 หมายเลขโทรศัพท์ 076-240-474 ต่อ 4000, 076-211-959 ต่อ 4000 หมายเลขโทรศัพท์ / โทรสาร 076-218-80';
+                    break;
+                default:
+                    $respMessage = 'ขอโทษนะค่ะคำถามนี้ไม่เกี่ยวข้องกับคณะวิทยาศาสตร์และเทคโนโลยีค่ะ';
+                    break;
+                   
+            }
+            $httpClient = new CurlHTTPClient($channel_token);
+            $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+            $textMessageBuilder = new TextMessageBuilder($respMessage);
+            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
     }
 }
+echo "OK";
