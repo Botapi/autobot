@@ -25,9 +25,10 @@ function configureFireBase()
 }
 
 // Token
-$channel_token =
-'ga8pQMcoauY4Va26gopt2nGpF4cS3MGhtg85GTNrQfVytm9UZy8mji1/CPiNVv94s1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zz/Qb7FJTp7GbaA/xzbbD6pqz+Cdj84BTTEQ3JqJIP2kgdB04t89/1O/w1cDnyilFU=';
-$channel_secret = '4d55dc3940c9af9c4c80b7ffc09608c6';
+$channel_token ='5zjv4hi29sLGonOEAlDYca3E6vCKAH08EoN6EGMFxBuVD+6n8b5ZDouqSneSz9SZs
+1aNd0p7bVqvAAKs3A86d6+4Vl0eSq72bPrl7WVC9zytLsWXQllSvwd0NRMpglE3bt9L8sSYpDXdvIkyCptCNQdB04t89/1O/w1cDnyilFU=
+';
+$channel_secret = 'e78b0a586ff35917bde68d9f3118b6c6';
 
 // Get message from Line API
 $content = file_get_contents('php://input');
